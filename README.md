@@ -1,94 +1,70 @@
-# 💼 MNC Gruppe 6 Collection Job
+# 💼 Infronix Gruppe 6 Collection Job
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![FiveM](https://img.shields.io/badge/FiveM-Ready-green.svg)](https://fivem.net/)
-[![QBCore](https://img.shields.io/badge/Framework-QBCore-blue.svg)](https://github.com/qbcore-framework)
+[![QBX](https://img.shields.io/badge/Framework-QBX-orange.svg)](https://github.com/Qbox-project/qbx_core)
 [![Version](https://img.shields.io/badge/Version-2.2.0-brightgreen.svg)]()
 
 ---
 
 ## 🌟 Overview
 
-## lockscreen
-<img width="1920" height="1080" alt="FiveM® by Cfx re - Midnight Club Los Santo&#39;s 22_11_2025 15_01_31" src="https://github.com/user-attachments/assets/615d5719-5214-4522-a69d-3583857fa85b" />
+<img width="1920" height="1080" alt="infronix_gruppe6-tablet" src="https://github.com/user-attachments/assets/615d5719-5214-4522-a69d-3583857fa85b" />
 
-
-## Routes Sheet
-<img width="1920" height="1080" alt="FiveM® by Cfx re - Midnight Club Los Santo&#39;s 22_11_2025 15_01_42" src="https://github.com/user-attachments/assets/b7b838ac-4982-4c1e-b358-88da25e65eeb" />
-
-
-A **fully immersive Gruppe 6 security job system** for QBCore-based FiveM servers.  
+A **fully immersive Gruppe 6 security job system** for QBX-based FiveM servers.  
 This script provides a **realistic two-phase collection route** with **loan agreements** and **cash pickups**, featuring a **custom tablet UI with fingerprint lock screen**, **GPS waypoint system**, **uniform management**, and **skill-based minigames**.  
-Fully optimized for **ox_lib**, **qb-target**, and includes **persistent route tracking** with completion states.
+Fully optimized for **ox_lib**, **ox_target**, and **ox_inventory**, featuring **persistent route tracking** and integrated uniform enforcement.
 
 ---
 
 ## ✨ Key Features
 
-- 🔒 **Immersive Tablet Interface**  
+- 🔒 **Immersive Tablet Interface (GPS Item)**  
   - Futuristic lock screen with fingerprint authentication.  
   - Real-time clock display on lock screen.  
-  - Smooth slide-in animations and responsive design.  
   - Employee name display and route tracking.  
   - GPS waypoint integration with one-click navigation.
+  - Persistent route state across opening/closing the tablet.
 
 - 📋 **Two-Phase Collection System**  
-  - **Phase 1: Loan Route** - Collect loan agreements from banks.  
+  - **Phase 1: Loan Route** - Collect loan agreements from bank locations.  
   - **Phase 2: Cash Route** - Pick up cash cases from ATM locations.  
-  - Must return to depot between phases to collect wages.  
-  - Separate payment for each phase ($1,250 loan + $2,500 cash).
+  - Sequential stop completion ensures players follow the intended route.  
+  - Return to depot between phases to collect wages and start the next phase.
 
-- 🎯 **Advanced Route Management**  
-  - Randomized routes from configurable location pools.  
-  - Sequential stop completion (must visit in order).  
-  - Visual completion tracking with status indicators.  
-  - Persistent route state across tablet opens/closes.  
-  - Automatic GPS waypoint updates.
-
-- 👔 **Uniform System**  
-  - Gender-specific Gruppe 6 uniforms.  
-  - Automatic clothing save/restore.  
-  - Optional uniform requirement before work.  
-  - In-game outfit copying tool (`/copyoutfit`).
+- 👔 **Uniform & Clothing System**  
+  - Gender-specific Gruppe 6 uniforms defined in `uniforms.lua`.  
+  - Automatic clothing save/restore when changing into/out of uniform.  
+  - Optional uniform requirement before starting a schedule (`Config.RequireUniformBeforeWork`).  
+  - In-game outfit copying tool (`/copyoutfit`) for easy customization.
 
 - 🎮 **Skill-Based Minigames**  
-  - Configurable ox_lib skill checks.  
+  - Uses `ox_lib` skill checks for internal interactions.  
   - Adjustable difficulty (easy/medium/hard).  
-  - Random sequence length (3-6 steps).  
-  - Optional toggle in config.
+  - Configurable sequence length and toggleable in config.
 
-- ⏱️ **Cooldown System**  
-  - 30-minute schedule pickup cooldown.  
-  - 60-minute full job completion cooldown.  
-  - Persistent across disconnects.  
-  - Real-time countdown notifications.
+- 💰 **Configurable Payouts & Cooldowns**  
+  - Separate payments for Loan and Cash phases (e.g., $2,250 + $3,500).  
+  - Customizable cooldowns for taking schedules and completing full jobs.  
+  - Notifications for cooldown remaining time.
 
-- 🚗 **Vehicle Integration**  
-  - Recommended Gruppe 6 Speedo for cash phase.  
-  - Configurable vehicle requirements.  
-  - Optional enforcement for cash collections.
-
-- 🎨 **Visual Blips & Markers**  
-  - Color-coded blips for different phases.  
-  - Depot blip always visible on map.  
-  - Active route waypoint highlighting.  
-  - Debug polygon zones for testing.
+- 🎨 **Visual Feedback**  
+  - Dynamic 3D markers at active locations (color-coded by phase).  
+  - Map blips for Depot and active waypoints.  
+  - Debug mode to visualize PolyZones and detailed logging.
 
 ---
 
 ## 📋 Requirements
 
-```bash
-Dependency             Version   Required
----------------------- --------- ----------
-QBCore Framework       Latest    ✅ Yes
-qb-target              Latest    ✅ Yes
-qb-menu                Latest    ✅ Yes (or ox_lib context)
-ox_lib                 Latest    ✅ Yes
-oxmysql                Latest    ✅ Yes
-PolyZone               Latest    ✅ Yes
-qb-clothing            Latest    ✅ Yes (for uniforms)
-```
+| Dependency | Purpose |
+|------------|---------|
+| [qbx_core](https://github.com/Qbox-project/qbx_core) | Core Framework |
+| [ox_lib](https://github.com/overextended/ox_lib) | UI, Skillchecks, Notifications |
+| [ox_target](https://github.com/overextended/ox_target) | Interaction System |
+| [ox_inventory](https://github.com/overextended/ox_inventory) | Inventory & Item Management |
+| [oxmysql](https://github.com/overextended/oxmysql) | Database Management |
+| [PolyZone](https://github.com/mkafrin/PolyZone) | Zone Management |
 
 ---
 
@@ -96,54 +72,28 @@ qb-clothing            Latest    ✅ Yes (for uniforms)
 
 ### 1️⃣ Download & Extract
 
-```bash
-# Clone from GitHub
-git clone https://github.com/MnCLosSantos/mnc-gruppe6.git
+Place the resource into your server's `resources` folder:
+`[server-data]/resources/[jobs]/infronix_gruppe6/`
 
-# OR download ZIP from Releases
-```
+### 2️⃣ Item Setup
 
-Place into your resources folder:
-
-```bash
-[server-data]/resources/[custom]/mnc-gruppe6/
-```
-
-### 2️⃣ Database Setup
-
-The script uses **QBCore's built-in player data** and **cooldown tracking**. No additional database tables required.
-
-### 3️⃣ Add to Server Config
-
-```lua
-# server.cfg
-ensure oxmysql
-ensure ox_lib
-ensure qb-target
-ensure mnc-gruppe6
-```
-
-### 4️⃣ Add Items
-
-Update `qb-core/shared/items.lua`:
+Add the GPS item to `ox_inventory/data/items.lua`:
 
 ```lua
 ['g6_route_gps'] = {
-    ['name'] = 'g6_route_gps',
-    ['label'] = 'Gruppe 6 Route GPS',
-    ['weight'] = 300,
-    ['type'] = 'item',
-    ['image'] = 'g6_route_gps.png',
-    ['unique'] = false,
-    ['useable'] = true,
-    ['shouldClose'] = true,
-    ['description'] = 'Digital route sheet with GPS navigation for Gruppe 6 employees'
+    label = 'Gruppe 6 Route GPS',
+    weight = 300,
+    stack = false,
+    close = true,
+    description = 'Digital route sheet with GPS navigation for Gruppe 6 employees'
 },
 ```
 
-### 5️⃣ Configure Job
+Place the item image (`g6_route_gps.png`) in `ox_inventory/web/images/`.
 
-Ensure your `qb-core/shared/jobs.lua` includes:
+### 3️⃣ Job Configuration
+
+Ensure you have the `gruppe6` job defined in your framework's job system. Example for `qbx_core`:
 
 ```lua
 ['gruppe6'] = {
@@ -152,361 +102,90 @@ Ensure your `qb-core/shared/jobs.lua` includes:
     offDutyPay = false,
     grades = {
         ['0'] = { name = 'Recruit', payment = 50 },
-        ['1'] = { name = 'Driver', payment = 75 },
-        ['2'] = { name = 'Security Officer', payment = 100 },
-        ['3'] = { name = 'Supervisor', payment = 125 },
-        ['4'] = { name = 'Manager', payment = 150 },
+        ['1'] = { name = 'Security Officer', payment = 100 },
+        ['2'] = { name = 'Supervisor', payment = 150 },
     },
 },
 ```
 
-### 6️⃣ Add Images
+### 4️⃣ Server Config
 
-Place these images in your `qb-inventory/html/images/` folder:
+Add to your `server.cfg`:
+```cfg
+ensure infronix_gruppe6
+```
 
-- `g6_route_gps.png` - GPS device icon
 ---
 
 ## ⚙️ Configuration
 
-### 🎯 Basic Settings
+The script is highly customizable via `config.lua`.
+
+### 🎯 Key Settings
 
 ```lua
-Config.Debug = false                    -- Enable debug logs and zone visuals
-Config.JobName = "gruppe6"              -- Job name required to access
-Config.RequireOnDuty = true             -- Must be clocked in
-Config.RequireUniformBeforeWork = true  -- Must wear uniform before taking schedule
-
--- Integration Options
-Config.Notify = "ox"                    -- "qb" or "ox"
-Config.Menu = "ox"                      -- "qb" or "ox"
-Config.Progress = "bar"                 -- "bar", "circle", or "qb"
-Config.ClothingExport = "qb-clothing"   -- Clothing resource name
+Config.JobRequired = false       -- true = must have job 'gruppe6' | false = public access
+Config.RequireOnDuty = false     -- Require player to be on-duty
+Config.RequireUniformBeforeWork = true -- Must change at depot before taking schedule
+Config.LoanPayout = 2250         -- Payout for Phase 1
+Config.CashPayout = 3500         -- Payout for Phase 2
+Config.LoanRouteCount = 5        -- Stops in Phase 1
+Config.CashRouteCount = 7        -- Stops in Phase 2
 ```
 
-### 📍 Location Setup
+### 👔 Uniform Setup (`uniforms.lua`)
 
-```lua
--- Depot/Schedule Pickup Location
-Config.Depot = vector3(11.99, -666.1, 33.9)
-Config.SchedulePickup = {
-    coords = vector3(11.99, -666.1, 33.9),
-    heading = 89.0
-}
-
--- Route Counts
-Config.LoanRouteCount = 2    -- Number of loan stops (max 15)
-Config.CashRouteCount = 2    -- Number of cash stops (max 20)
-```
-
-### 🏦 Location Pools
-
-```lua
-Config.Pool = {
-    -- Banks (used for loan phase)
-    banks = {
-        { coords = vector3(149.45, -1042.13, 29.37), name = "Pillbox Medical" },
-        { coords = vector3(-1212.83, -330.12, 37.78), name = "Depot Street" },
-        -- Add more locations...
-    },
-
-    -- ATMs (used exclusively for cash phase)
-    cash = {
-        { coords = vector3(-821.2, -1081.6, 11.13), name = "ATM - Mirror Park" },
-        { coords = vector3(-386.2, 6045.4, 31.5), name = "ATM - Paleto Bay" },
-        -- Add more locations...
-    }
-}
-```
-
-### 💰 Payment Configuration
-
-```lua
-Config.LoanPayout = 1250    -- Payment after loan phase
-Config.CashPayout = 2500    -- Payment after cash phase
-```
-
-### ⏱️ Cooldowns & Timers
-
-```lua
-Config.Cooldowns = {
-    Schedule = 1800,    -- 30 minutes between schedule pickups
-    FullJob = 3600      -- 60 minutes after completing full job
-}
-
-Config.Timers = {
-    CollectLoan = 5000,    -- 5 seconds to collect loan documents
-    CollectCash = 6000,    -- 6 seconds to pick up cash case
-    LoadCase = 4000        -- 4 seconds to load case into vehicle
-}
-```
-
-### 🎮 Minigame Settings
-
-```lua
-Config.Minigame = {
-    Enabled = true,         -- Set to false to skip minigame
-    MinLength = 3,          -- Minimum sequence length
-    MaxLength = 6,          -- Maximum sequence length
-    Difficulty = "easy"     -- Options: "easy", "medium", "hard"
-}
-```
-
-### 🚗 Vehicle Requirements
-
-```lua
-Config.RequireVehicleForCash = false  -- Enforce vehicle check
-Config.CashRequiredVehicles = {
-    "speedo4",  -- Gruppe 6 Speedo
-    "stockade"  -- Brinks armored truck
-}
-```
-
-### 📍 Blip Configuration
-
-```lua
-Config.Blips = {
-    Depot = { 
-        enabled = true, 
-        sprite = 431, 
-        color = 2, 
-        scale = 1.0, 
-        text = "Gruppe 6 Depot" 
-    },
-    Loan = { 
-        sprite = 280, 
-        color = 46, 
-        scale = 0.7, 
-        text = "Loan Pickup" 
-    },
-    Cash = { 
-        sprite = 108, 
-        color = 5, 
-        scale = 0.7, 
-        text = "Cash Pickup" 
-    }
-}
-```
+Use the built-in command to generate outfit code for your server:
+1. Dress your character in the desired Gruppe 6 outfit.
+2. Run `/copyoutfit male` or `/copyoutfit female`.
+3. Open F8 console, copy the code block.
+4. Replace the existing data in `uniforms.lua`.
 
 ---
 
 ## 🎮 How to Play
 
-### Starting a Route
-
-1. **Go to Gruppe 6 Depot** (Legion Square area)
-2. **Interact with the schedule pickup** (qb-target)
-3. **Put on Gruppe 6 uniform** (required if enabled)
-4. **Take Schedule** from menu
-5. **Receive GPS tablet** automatically
-6. **Follow GPS waypoints** to each location
-
-### Phase 1: Loan Collections
-
-1. **Visit each loan stop** in sequential order
-2. **Complete minigame** (if enabled)
-3. **Collect loan agreements** (5-second progress)
-4. **Return to depot** after all stops completed
-5. **Withdraw loan wages** ($1,250)
-6. **GPS tablet remains** for Phase 2
-
-### Phase 2: Cash Collections
-
-1. **Start cash phase** from depot menu
-2. **Optional: Use Gruppe 6 Speedo** (recommended)
-3. **Visit each cash stop** in sequential order
-4. **Complete minigame** (if enabled)
-5. **Pick up and load cash cases** (10 seconds total)
-6. **Return to depot** after all stops completed
-7. **Withdraw final wages** ($2,500)
-8. **GPS tablet is removed** automatically
-
-### Using the GPS Tablet
-
-1. **Use the GPS item** from inventory anytime
-2. **Unlock tablet** with fingerprint button
-3. **View all route stops** with completion status
-4. **Click waypoint buttons** to set GPS markers
-5. **Track progress** in real-time
-6. **Close with X button** or ESC key
-
----
-
-## 🎯 Controls
-
-| Key | Action |
-|-----|--------|
-| `E` | Interact with target zones |
-| `ESC` | Close GPS tablet |
-| Mouse | Click waypoint buttons, unlock screen |
+1. **Start Duty**: Head to the Gruppe 6 Depot and clock in (if required).
+2. **Equip Uniform**: Use the depot menu to change into your work gear.
+3. **Request Schedule**: Interact with the depot terminal to receive your route.
+4. **Collect Loan Agreements**: Follow the GPS to bank locations and collect documents.
+5. **Return to Depot**: Collect your Phase 1 pay and start the **Cash Phase**.
+6. **Collect Cash**: Visit ATM locations, pick up cash cases, and load them into your vehicle.
+7. **Final Payout**: Return to the depot one last time to collect your final wages.
 
 ---
 
 ## 🔧 Commands
 
-| Command | Description | Usage |
-|---------|-------------|-------|
-| `/copyoutfit male` | Copy male uniform to console | In-game with male character |
-| `/copyoutfit female` | Copy female uniform to console | In-game with female character |
-
----
-
-## 👔 Uniform Customization
-
-### Editing Uniforms
-
-Modify `uniforms.lua` to customize Gruppe 6 outfits:
-
-```lua
-Uniforms.Gruppe6 = {
-    male = {
-        outfit = {
-            ["tshirt"] = { item = 15, texture = 0 },
-            ["torso2"] = { item = 26, texture = 1 },
-            ["pants"]  = { item = 24, texture = 0 },
-            ["shoes"]  = { item = 52, texture = 0 },
-            ["arms"]   = { item = 48, texture = 0 },
-            ["vest"]   = { item = 6, texture = 0 },
-            ["hat"]    = { item = -1, texture = 0 }  -- -1 = no hat
-        }
-    },
-    female = { /* ... */ }
-}
-```
-
-### Using /copyoutfit Command
-
-1. Dress your character in desired outfit
-2. Run `/copyoutfit male` or `/copyoutfit female`
-3. Copy the output from F8 console
-4. Paste into `uniforms.lua`
-5. Restart resource
+| Command | Description |
+|---------|-------------|
+| `/copyoutfit male` | Generates outfit code for male peds in F8 console |
+| `/copyoutfit female` | Generates outfit code for female peds in F8 console |
 
 ---
 
 ## 🎨 UI Customization
 
-### Tablet Colors
-
-Edit `style.css` CSS variables:
-
-```css
-:root {
-    --accent: #19a85a;        /* Gruppe 6 green */
-    --accent-dark: #148f49;   /* Darker green */
-    --complete: #19a85a;      /* Completed stops */
-    --pending: #f59e0b;       /* Pending stops */
-}
-```
-
-### Lock Screen Background
-
-Replace `html/lockscreen.png` with your custom image (recommended: 880x520px).
-
----
-
-## 🐛 Troubleshooting
-
-### GPS Tablet Not Opening
-- Check if player has active route (`activeRoute`)
-- Ensure item name matches: `g6_route_gps`
-- Verify ox_lib is loaded before script
-
-### Waypoint Buttons Not Working
-- Confirm route data is being sent correctly
-- Check browser console (F12) for JavaScript errors
-- Ensure stop indices match (0-based in NUI, 1-based in Lua)
-
-### Uniform Not Applying
-- Verify clothing export name in config
-- Check drawable/texture IDs in `uniforms.lua`
-- Use `/copyoutfit` to get correct IDs for your server
-
-### Minigame Always Failing
-- Lower difficulty in config: `Difficulty = "easy"`
-- Reduce sequence length: `MaxLength = 3`
-- Test with `Enabled = false` to bypass
-
-### Stops Not Completing
-- Enable debug mode: `Config.Debug = true`
-- Check distance from target zone (must be within 20m)
-- Verify stop index matches current route position
-- Check F8 console for debug logs
-
-### Cooldown Not Working
-- Confirm oxmysql is running
-- Check server console for database errors
-- Verify citizenid is valid
+- **Tablet Design**: Edit `html/style.css` to change colors, fonts, and animations.
+- **Background**: Replace `html/lockscreen.png` to customize the tablet's wallpaper.
+- **Logo**: Customize `html/sechslogo.png` for branding.
 
 ---
 
 ## 📊 Performance
 
-- **Resmon Usage**: ~0.01ms idle, ~0.03ms active
-- **Database Queries**: Minimal (cooldown checks only)
-- **Network Events**: Optimized (state updates only when needed)
-- **Memory**: ~5MB (including UI assets)
+- **Resmon**: ~0.01ms (idle) / ~0.03ms (active markers/zones)
+- **Networking**: Event-driven architecture with minimal server overhead.
 
 ---
 
-## 🔄 Planned Features
+## 📝 Credits
 
-- [ ] Team routes (multiple players, shared progress)
-- [ ] Difficulty tiers (easy/medium/hard routes)
-- [ ] Random events (robberies, vehicle breakdowns)
-- [ ] Ranking system with perks
-- [ ] Custom vehicle spawning
-- [ ] Integration with phone apps (e.g., qb-phone)
-
----
-
-## 📝 Changelog
-
-### Version 2.2.0 (Current)
-- Added GPS tablet item with persistent route tracking
-- Implemented fingerprint lock screen
-- Fixed completion state persistence
-- Added waypoint button functionality
-- Improved NUI-Lua communication
-- Enhanced debug logging
-
-### Version 2.1.0
-- Two-phase payment system (loan + cash)
-- Separated location pools (banks + ATMs)
-- Tablet removed only after final payment
-- Fixed cooldown tracking
-
----
-
-## 🤝 Credits
-
-- **Author**: Stan Leigh
-- **Framework**: QBCore
-- **UI Libraries**: ox_lib, qb-menu, qb-target
-
----
-
-## 📞 Support & Community
-
-[![Discord](https://img.shields.io/badge/Discord-Join%20Server-7289da?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/aTBsSZe5C6)
-
-[![GitHub](https://img.shields.io/badge/GitHub-View%20Script-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/MnCLosSantos/mnc-gruppe6)
-
-**Need Help?**
-- Open an issue on GitHub
-- Join our Discord server
-- Check the troubleshooting section above
+- **Author**: Marwan
+- **Repository**: [infronix_gruppe6](https://github.com/muhammedmarwan/infronix_gruppe6)
 
 ---
 
 ## 📜 License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
-
----
-
-## ⭐ Show Your Support
-
-If you like this script, please give it a ⭐ on GitHub!
-
-**Enjoy your Gruppe 6 collection routes!** 💼🚚💰

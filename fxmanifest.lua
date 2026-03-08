@@ -1,9 +1,9 @@
 fx_version 'cerulean'
 game 'gta5'
 
-name 'mnc-gruppe6'
-author 'Stan Leigh'
-description 'Gruppe 6 Collection Job for QB-Core'
+name 'infronix_gruppe6'
+author 'Marwan'
+description 'Gruppe 6 Collection Job for QBX'
 version '2.2.0'
 
 shared_scripts {

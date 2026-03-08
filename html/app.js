@@ -1,6 +1,6 @@
-// mnc-gruppe6 Tablet UI with Lock Screen
+// infronix_gruppe6 Tablet UI with Lock Screen
 
-(function() {
+(function () {
     // Elements
     const backdrop = document.getElementById('tablet-backdrop');
     const tablet = document.getElementById('tablet');
@@ -35,7 +35,7 @@
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
         lockTime.textContent = `${hours}:${minutes}`;
-        
+
         const options = { weekday: 'long', month: 'long', day: 'numeric' };
         lockDate.textContent = now.toLocaleDateString('en-US', options);
     }
@@ -49,7 +49,7 @@
     // -------------------------------------------------------------------
     fingerprintBtn.addEventListener('click', () => {
         fingerprintBtn.classList.add('scanning');
-        
+
         setTimeout(() => {
             fingerprintBtn.classList.remove('scanning');
             unlockTablet();
@@ -76,11 +76,11 @@
         if (!d || !d.action) return;
 
         if (d.action === 'openRouteCard') {
-            routeData = { 
-                loan: d.loan || [], 
-                cash: d.cash || [] 
+            routeData = {
+                loan: d.loan || [],
+                cash: d.cash || []
             };
-            
+
             // Use provided completion state, or reset to empty if not provided
             if (d.completedLoan !== undefined) {
                 if (Array.isArray(d.completedLoan)) {
@@ -94,7 +94,7 @@
             } else {
                 completedLoan = [];
             }
-            
+
             if (d.completedCash !== undefined) {
                 if (Array.isArray(d.completedCash)) {
                     completedCash = d.completedCash;
@@ -107,7 +107,7 @@
             } else {
                 completedCash = [];
             }
-            
+
             if (d.playerName) {
                 playerNameEl.textContent = `Employee: ${d.playerName}`;
             }
@@ -160,19 +160,19 @@
     // -------------------------------------------------------------------
     function renderLoanList() {
         loanList.innerHTML = "";
-        
+
         routeData.loan.forEach((stop, i) => {
             const isComplete = completedLoan[i] === true;
             const el = document.createElement('div');
             el.className = `route-item ${isComplete ? 'complete' : ''}`;
-            
+
             const displayName = stop.name || `${stop.x.toFixed(1)}, ${stop.y.toFixed(1)}`;
-            
+
             el.innerHTML = `
                 <div class="left">
                     <div class="idx">${i + 1}</div>
                     <div class="info">
-                        <div class="label">Loan Stop ${i+1}</div>
+                        <div class="label">Loan Stop ${i + 1}</div>
                         <div class="coord">${displayName}</div>
                     </div>
                 </div>
@@ -192,19 +192,19 @@
     // -------------------------------------------------------------------
     function renderCashList() {
         cashList.innerHTML = "";
-        
+
         routeData.cash.forEach((stop, i) => {
             const isComplete = completedCash[i] === true;
             const el = document.createElement('div');
             el.className = `route-item ${isComplete ? 'complete' : ''}`;
-            
+
             const displayName = stop.name || `${stop.x.toFixed(1)}, ${stop.y.toFixed(1)}`;
-            
+
             el.innerHTML = `
                 <div class="left">
                     <div class="idx">${i + 1}</div>
                     <div class="info">
-                        <div class="label">Cash Stop ${i+1}</div>
+                        <div class="label">Cash Stop ${i + 1}</div>
                         <div class="coord">${displayName}</div>
                     </div>
                 </div>
@@ -245,7 +245,7 @@
         if (e.target.classList.contains('waypoint-btn')) {
             const type = e.target.getAttribute('data-type');
             const index = parseInt(e.target.getAttribute('data-index'));
-            
+
             if (type && index !== null && !e.target.disabled) {
                 fetch(`https://${GetParentResourceName()}/setWaypoint`, {
                     method: 'POST',

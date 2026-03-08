@@ -1,4 +1,4 @@
--- server.lua - mnc-gruppe6 (FINAL: Clean, secure, tablet removed ONLY after final cash payout)
+-- server.lua - infronix_gruppe6 (FINAL: Clean, secure, tablet removed ONLY after final cash payout)
 local cooldowns = {}
 local activeRoutes = {}
 
@@ -54,7 +54,7 @@ local function buildRandomRoute()
     return { loan = loan, cash = cash }
 end
 
-RegisterNetEvent("mnc-gruppe6:server:RequestSchedule", function()
+RegisterNetEvent("infronix_gruppe6:server:RequestSchedule", function()
     local src = source
     local Player = exports.qbx_core:GetPlayer(src)
     if not Player then return end
@@ -63,7 +63,7 @@ RegisterNetEvent("mnc-gruppe6:server:RequestSchedule", function()
 
     if onCooldown(cooldownKey) then
         local timeLeft = cooldowns[cooldownKey] - now()
-        TriggerClientEvent("mnc-gruppe6:client:ScheduleCooldown", src, timeLeft)
+        TriggerClientEvent("infronix_gruppe6:client:ScheduleCooldown", src, timeLeft)
         return
     end
 
@@ -77,11 +77,11 @@ RegisterNetEvent("mnc-gruppe6:server:RequestSchedule", function()
         exports.ox_inventory:AddItem(src, 'g6_route_gps', 1)
     end
     
-    TriggerClientEvent("mnc-gruppe6:client:ReceiveSchedule", src, route)
+    TriggerClientEvent("infronix_gruppe6:client:ReceiveSchedule", src, route)
 end)
 
 -- LOAN PHASE PAYMENT (only once)
-RegisterNetEvent("mnc-gruppe6:server:CompleteLoanPhase", function()
+RegisterNetEvent("infronix_gruppe6:server:CompleteLoanPhase", function()
     local src = source
     local Player = exports.qbx_core:GetPlayer(src)
     if not Player then return end
@@ -94,7 +94,7 @@ end)
 
 -- FINAL CASH PHASE PAYMENT
 -- -> pay player, THEN remove tablet, THEN cleanup and set full-job cooldown
-RegisterNetEvent("mnc-gruppe6:server:CompleteCashPhase", function()
+RegisterNetEvent("infronix_gruppe6:server:CompleteCashPhase", function()
     local src = source
     local Player = exports.qbx_core:GetPlayer(src)
     if not Player then return end
@@ -140,7 +140,7 @@ exports.qbx_core:CreateUseableItem("g6_route_gps", function(source, item)
     end
     
     -- Open the GPS UI with their active route
-    TriggerClientEvent("mnc-gruppe6:client:OpenGPS", src)
+    TriggerClientEvent("infronix_gruppe6:client:OpenGPS", src)
 end)
 
-print("^2[mnc-gruppe6]^7 Script loaded successfully!")
+print("^2[infronix_gruppe6]^7 Script loaded successfully!")

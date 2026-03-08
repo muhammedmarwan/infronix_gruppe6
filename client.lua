@@ -1,4 +1,4 @@
--- client.lua - mnc-gruppe6 (FINAL: Both phases require return to depot + Withdraw wages for loan AND cash)
+-- client.lua - infronix_gruppe6 (FINAL: Both phases require return to depot + Withdraw wages for loan AND cash)
 local PlayerData = {}
 local hasUniform = false
 local originalClothes = nil
@@ -104,7 +104,7 @@ CreateThread(function()
         debug = Config.Debug,
         options = {
             {
-                event = "mnc-gruppe6:client:OpenScheduleMenu",
+                event = "infronix_gruppe6:client:OpenScheduleMenu",
                 icon = "fas fa-clipboard-list",
                 label = "Gruppe 6 - Open Menu",
                 distance = 2.5
@@ -114,7 +114,7 @@ CreateThread(function()
 end)
 
 -- MENU
-RegisterNetEvent("mnc-gruppe6:client:OpenScheduleMenu", function()
+RegisterNetEvent("infronix_gruppe6:client:OpenScheduleMenu", function()
     PlayerData = exports.qbx_core:GetPlayerData()
 
     -- Check if job is required and player doesn't have it
@@ -130,21 +130,21 @@ RegisterNetEvent("mnc-gruppe6:client:OpenScheduleMenu", function()
     local options = {
         -- Changes title depending on whether job is required
         { header = Config.JobRequired and "Gruppe 6 Depot" or "Public Collection Route", isMenuHeader = true },
-        { header = "Take Schedule", txt = "Start collection route", params = { event = "mnc-gruppe6:client:RequestSchedule" } },
-        { header = "Put on Uniform", txt = "Change into Gruppe 6 outfit", params = { event = "mnc-gruppe6:client:ChangeIntoUniform" } },
-        { header = "Civilian Clothes", txt = "Change back", params = { event = "mnc-gruppe6:client:ChangeToCivilian" } },
+        { header = "Take Schedule", txt = "Start collection route", params = { event = "infronix_gruppe6:client:RequestSchedule" } },
+        { header = "Put on Uniform", txt = "Change into Gruppe 6 outfit", params = { event = "infronix_gruppe6:client:ChangeIntoUniform" } },
+        { header = "Civilian Clothes", txt = "Change back", params = { event = "infronix_gruppe6:client:ChangeToCivilian" } },
     }
 
     if loanPhaseComplete then
-        table.insert(options, #options, { header = "Withdraw Loan Wages", txt = "Collect your $"..Config.LoanPayout.." payment", params = { event = "mnc-gruppe6:client:WithdrawLoanWages" } })
+        table.insert(options, #options, { header = "Withdraw Loan Wages", txt = "Collect your $"..Config.LoanPayout.." payment", params = { event = "infronix_gruppe6:client:WithdrawLoanWages" } })
     end
 
     if cashPhaseComplete then
-        table.insert(options, #options, { header = "Withdraw Final Wages", txt = "Collect your $"..Config.CashPayout.." payment", params = { event = "mnc-gruppe6:client:WithdrawCashWages" } })
+        table.insert(options, #options, { header = "Withdraw Final Wages", txt = "Collect your $"..Config.CashPayout.." payment", params = { event = "infronix_gruppe6:client:WithdrawCashWages" } })
     end
 
     if activeRoute and loanIndex > #activeRoute.loan and cashIndex == 0 and not loanPhaseComplete then
-        table.insert(options, #options, { header = "Start Cash Phase", txt = "Begin cash collections", params = { event = "mnc-gruppe6:client:StartCashPhase" } })
+        table.insert(options, #options, { header = "Start Cash Phase", txt = "Begin cash collections", params = { event = "infronix_gruppe6:client:StartCashPhase" } })
     end
 
     table.insert(options, { header = "Close", isMenuHeader = true })
@@ -164,7 +164,7 @@ RegisterNetEvent("mnc-gruppe6:client:OpenScheduleMenu", function()
 end)
 
 -- Clothing
-RegisterNetEvent("mnc-gruppe6:client:ChangeIntoUniform", function()
+RegisterNetEvent("infronix_gruppe6:client:ChangeIntoUniform", function()
     local now = GetGameTimer()
     if now - lastUniformAttempt < 30000 and hasUniform then return end
     lastUniformAttempt = now
@@ -261,7 +261,7 @@ RegisterNetEvent("mnc-gruppe6:client:ChangeIntoUniform", function()
     end
 end)
 
-RegisterNetEvent("mnc-gruppe6:client:ChangeToCivilian", function()
+RegisterNetEvent("infronix_gruppe6:client:ChangeToCivilian", function()
     if not hasUniform or not originalClothes then Notify("You are not wearing the Gruppe 6 uniform!", "error") return end
     local ped = PlayerPedId()
     for i = 0, 11 do local c = originalClothes.components[i] SetPedComponentVariation(ped, i, c.drawable, c.texture, 0) end
@@ -276,13 +276,13 @@ RegisterNetEvent("mnc-gruppe6:client:ChangeToCivilian", function()
 end)
 
 -- Job Start
-RegisterNetEvent("mnc-gruppe6:client:RequestSchedule", function()
+RegisterNetEvent("infronix_gruppe6:client:RequestSchedule", function()
     if activeRoute then return Notify("Finish your current route first!", "error") end
     if Config.RequireUniformBeforeWork and not hasUniform then return Notify("You must wear the Gruppe 6 uniform first.", "error") end
-    TriggerServerEvent("mnc-gruppe6:server:RequestSchedule")
+    TriggerServerEvent("infronix_gruppe6:server:RequestSchedule")
 end)
 
-RegisterNetEvent("mnc-gruppe6:client:ReceiveSchedule", function(route)
+RegisterNetEvent("infronix_gruppe6:client:ReceiveSchedule", function(route)
     activeRoute = route
     loanIndex = 1
     cashIndex = 0
@@ -331,7 +331,7 @@ function createLoanZones(list)
             debug = Config.Debug,
             options = {
                 {
-                    event = "mnc-gruppe6:client:CollectLoan",
+                    event = "infronix_gruppe6:client:CollectLoan",
                     icon = "fas fa-file-contract",
                     label = "Collect Loan Agreements",
                     stopIndex = i,
@@ -356,7 +356,7 @@ function createCashZones(list)
             debug = Config.Debug,
             options = {
                 {
-                    event = "mnc-gruppe6:client:CollectCash",
+                    event = "infronix_gruppe6:client:CollectCash",
                     icon = "fas fa-briefcase",
                     label = "Collect Cash Case",
                     stopIndex = i,
@@ -447,7 +447,7 @@ CreateThread(function()
 end)
 
 -- LOAN PHASE
-RegisterNetEvent("mnc-gruppe6:client:CollectLoan", function(data)
+RegisterNetEvent("infronix_gruppe6:client:CollectLoan", function(data)
     if not activeRoute or not activeRoute.loan[loanIndex] then return end
     
     local index = data.index or data.stopIndex or 0
@@ -500,19 +500,19 @@ RegisterNetEvent("mnc-gruppe6:client:CollectLoan", function(data)
 end)
 
 -- WITHDRAW LOAN WAGES
-RegisterNetEvent("mnc-gruppe6:client:WithdrawLoanWages", function()
+RegisterNetEvent("infronix_gruppe6:client:WithdrawLoanWages", function()
     if not loanPhaseComplete then Notify("You haven't completed the loan phase yet!", "error") return end
 
     -- Remove tablet from player (server handles inventory)
-    TriggerServerEvent("mnc-gruppe6:server:RemoveTablet")
+    TriggerServerEvent("infronix_gruppe6:server:RemoveTablet")
 
-    TriggerServerEvent("mnc-gruppe6:server:CompleteLoanPhase")
+    TriggerServerEvent("infronix_gruppe6:server:CompleteLoanPhase")
     Notify("Loan phase wages collected: +$"..Config.LoanPayout.."!", "success")
     loanPhaseComplete = false
 end)
 
 -- CASH PHASE
-RegisterNetEvent("mnc-gruppe6:client:CollectCash", function(data)
+RegisterNetEvent("infronix_gruppe6:client:CollectCash", function(data)
     if cashIndex == 0 then
         Notify("Cash phase hasn't started yet! Complete the loan phase first.", "error")
         return
@@ -578,13 +578,13 @@ RegisterNetEvent("mnc-gruppe6:client:CollectCash", function(data)
 end)
 
 -- WITHDRAW FINAL CASH WAGES
-RegisterNetEvent("mnc-gruppe6:client:WithdrawCashWages", function()
+RegisterNetEvent("infronix_gruppe6:client:WithdrawCashWages", function()
     if not cashPhaseComplete then Notify("You haven't completed the cash phase yet!", "error") return end
 
     -- Remove tablet from player (server handles inventory)
-    TriggerServerEvent("mnc-gruppe6:server:RemoveTablet")
+    TriggerServerEvent("infronix_gruppe6:server:RemoveTablet")
 
-    TriggerServerEvent("mnc-gruppe6:server:CompleteCashPhase")
+    TriggerServerEvent("infronix_gruppe6:server:CompleteCashPhase")
     Notify("Final wages collected: +$"..Config.CashPayout.."! Job complete.", "success")
     activeRoute = nil
     loanIndex = 0
@@ -594,7 +594,7 @@ RegisterNetEvent("mnc-gruppe6:client:WithdrawCashWages", function()
 end)
 
 -- Start Cash Phase
-RegisterNetEvent("mnc-gruppe6:client:StartCashPhase", function()
+RegisterNetEvent("infronix_gruppe6:client:StartCashPhase", function()
     if loanIndex <= #activeRoute.loan then Notify("Finish the loan phase first!", "error") return end
     if loanPhaseComplete then Notify("You already collected your loan wages.", "primary") end
 
@@ -609,7 +609,7 @@ RegisterNetEvent("mnc-gruppe6:client:StartCashPhase", function()
 end)
 
 -- Open GPS UI when item is used
-RegisterNetEvent("mnc-gruppe6:client:OpenGPS", function()
+RegisterNetEvent("infronix_gruppe6:client:OpenGPS", function()
     if not activeRoute then 
         Notify("You don't have an active route!", "error")
         return 
@@ -817,7 +817,7 @@ RegisterCommand("debugoutfit", function()
     
 end, false)
 
-RegisterNetEvent("mnc-gruppe6:client:ScheduleCooldown", function(sec)
+RegisterNetEvent("infronix_gruppe6:client:ScheduleCooldown", function(sec)
     local m = math.floor(sec / 60)
     local s = sec % 60
     Notify(string.format("Cooldown: %02d:%02d", m, s), "error")
