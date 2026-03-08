@@ -184,6 +184,8 @@ Use the built-in command to generate outfit code for your server:
 - **Author**: Marwan
 - **Repository**: [infronix_gruppe6](https://github.com/muhammedmarwan/infronix_gruppe6)
 
+- ⛔⛔ORIGINAL Author: https://github.com/MnCLosSantos/mnc-gruppe6.git
+
 ---
 
 ## 📜 License
